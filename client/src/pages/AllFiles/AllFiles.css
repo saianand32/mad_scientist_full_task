@@ -1,0 +1,18 @@
+.mainpdfcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12vh;
+}
+
+.allPdfDiv {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.allfilesHeading h1 {
+    color: white;
+}
