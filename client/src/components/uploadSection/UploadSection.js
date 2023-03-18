@@ -32,13 +32,18 @@ function UploadSection({ file, setFile, setFlag, setViewLoading }) {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        maxContentLength: 1000 * 1024 * 18, 
+        maxBodyLength: 1000 * 1024 * 18, 
       });
-      setViewLoading(false)
-      alert(response.data.message)
+      setViewLoading(false);
+      alert(response.data.message);
     } catch (error) {
+      setViewLoading(false);
+      alert("exceeding header length / cyclic platform error");
       console.error(error);
     }
   };
+  
 
   return (
     <div className="mainUploadContainer">

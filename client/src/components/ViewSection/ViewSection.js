@@ -60,6 +60,7 @@ function ViewSection({ file, setFile, setFlag, viewLoading, setViewLoading }) {
   }
   function handleReset() {
     setFile(null);
+    setViewLoading(true)
     setFlag(false);
   }
 

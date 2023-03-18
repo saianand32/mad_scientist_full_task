@@ -42,7 +42,6 @@ module.exports.compressPdf = async (buffer) => {
     try {
       const response = await axios.get(url, { responseType: 'arraybuffer' });
       const pdfBuffer = Buffer.from(response.data, 'utf-8');
-      console.log(pdfBuffer)
       return pdfBuffer;
     } catch (error) {
       console.error(error);

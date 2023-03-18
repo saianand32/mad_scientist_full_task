@@ -35,7 +35,6 @@ module.exports.fileUploadController = async (req, res, next) => {
             contentType,
             filename,
           });
-          console.log(buffer)
           const compressedSize = (compressedFile.Files[0].FileSize)/ (1024*1024)
           res.status(200).json({status:true, message: `file compressed to ${compressedSize.toFixed(3)} Mb and uploaded successfully`})
         })
