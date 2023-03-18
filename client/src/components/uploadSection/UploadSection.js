@@ -5,46 +5,21 @@ import Button from "@mui/material/Button";
 import { uploadFileRoute } from "../../utils/APIRoutes";
 const MAX_FILE_SIZE = 6 * 1024 * 1024;
 
-function UploadSection({ file, setFile, setFlag }) {
+function UploadSection({ file, setFile, setFlag, setViewLoading }) {
   const [label, setLabel] = useState("Choose a PDF");
   const [upload, setUpload] = useState(false);
 
-  const compressFile = async (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const compressedFile = new Blob([event.target.result], {
-          type: file.type,
-        });
-        resolve(compressedFile);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  };
-
   const handleFileSelect = async (e) => {
     const uploadedFile = e.target.files[0];
-
     if (!uploadedFile) {
       return;
     }
     setUpload(true);
     if (uploadedFile.size > MAX_FILE_SIZE) {
-      // Compress the file before sending it to the server
-      const compressedFile = await compressFile(uploadedFile);
-      if (compressedFile.size > MAX_FILE_SIZE) {
-        alert("File size too large. Please select a smaller file.");
-        return;
-      }
-      setFile(compressedFile);
-      setLabel(uploadedFile.name);
-    } else {
+       alert('file larger than 6 Mb size = '+ ((uploadedFile.size)/(1024*1024)).toFixed(3)+" Mb")
+    }
       setFile(uploadedFile);
       setLabel(uploadedFile.name);
-    }
   };
 
   const handleFileSendToDbAndView = async () => {
@@ -58,7 +33,8 @@ function UploadSection({ file, setFile, setFlag }) {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data.filename);
+      setViewLoading(false)
+      alert(response.data.message)
     } catch (error) {
       console.error(error);
     }

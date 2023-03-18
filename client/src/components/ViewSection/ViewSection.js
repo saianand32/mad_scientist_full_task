@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import Loader from '../Loader/Loader'
 import Warn from "../../components/Warn/Warn";
 import "./ViewSection.css";
 
-function ViewSection({ file, setFile, setFlag }) {
+function ViewSection({ file, setFile, setFlag, viewLoading, setViewLoading }) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(0.6);
   const [dimensionTrue, setDimensionTrue] = useState(0.6);
   const [fullScreen, setFullScreen] = useState(false);
+
 
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -63,6 +65,10 @@ function ViewSection({ file, setFile, setFlag }) {
 
   return (
     <>
+    {
+      viewLoading ? <Loader/>
+      :
+      <>
       {dimensionTrue ? (
         <div className="viewContainer">
           <div className="pdf-controls" style={{ marginTop: "12vh" }}>
@@ -113,6 +119,8 @@ function ViewSection({ file, setFile, setFlag }) {
       ) : (
         <Warn setFlag={setFlag} />
       )}
+    </>
+    }
     </>
   );
 }

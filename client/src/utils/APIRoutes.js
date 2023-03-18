@@ -1,4 +1,5 @@
 const host = "http://localhost:8000";
+// const host = "https://creepy-clam-handbag.cyclic.app";
 
 export const signupRoute = `${host}/api/auth/signup`
 export const loginRoute = `${host}/api/auth/login`
